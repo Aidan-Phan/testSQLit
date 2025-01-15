@@ -1,37 +1,85 @@
 <!DOCTYPE html>
-<html>
+<!-- CREATED BY CHATGPT -->
+<html lang="en">
 <head>
-    <title>Simple Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Database</title>
 </head>
 <body>
-    <h1>Active Database</h1>
+    <h1>Employee Database</h1>
 
-    <!-- Display Records -->
-    <table>
+    <!-- Table to Display Records -->
+    <h2>Employee Records</h2>
+    <table border="1">
         <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Value</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Points</th>
+            {% if is_authenticated %}
             <th>Actions</th>
+            {% endif %}
         </tr>
         {% for record in records %}
         <tr>
             <td>{{ record[0] }}</td>
             <td>{{ record[1] }}</td>
             <td>{{ record[2] }}</td>
-            <td><a href="/delete/{{ record[0] }}">Delete</a></td>
+            <td>{{ record[3] }}</td>
+            {% if is_authenticated %}
+            <td>
+                <!-- Remove Button -->
+                <form method="post" action="/remove" style="display:inline;">
+                    <input type="hidden" name="id" value="{{ record[0] }}">
+                    <button type="submit">Remove</button>
+                </form>
+
+                <!-- Increase Value Button -->
+                <form method="post" action="/increase" style="display:inline;">
+                    <input type="hidden" name="id" value="{{ record[0] }}">
+                    <button type="submit">Increase</button>
+                </form>
+
+                <!-- Decrease Value Button -->
+                <form method="post" action="/decrease" style="display:inline;">
+                    <input type="hidden" name="id" value="{{ record[0] }}">
+                    <button type="submit">Decrease</button>
+                </form>
+            </td>
+            {% endif %}
         </tr>
         {% endfor %}
     </table>
 
-    <!-- Form to Add Records -->
-    <h2>Add a New Record</h2>
-    <form method="post" action="/add">
-        <label>Name:</label><br>
-        <input type="text" name="name"><br>
-        <label>Value:</label><br>
-        <input type="text" name="value"><br><br>
-        <input type="submit" value="Add">
+    <hr>
+
+    {% if is_authenticated %}
+    <!-- Form to Add Data -->
+    <h2>Insert Employee</h2>
+    <form id="employee-form" method="post" action="/add">
+        <label for="first">First Name:</label><br>
+        <input type="text" id="first" name="first" required><br><br>
+
+        <label for="last">Last Name:</label><br>
+        <input type="text" id="last" name="last" required><br><br>
+
+        <label for="value">Points:</label><br>
+        <input type="number" id="value" name="value" required><br><br>
+
+        <button type="submit">Add Player</button>
     </form>
+    <form method="get" action="/logout">
+        <button type="submit">Logout</button>
+    </form>
+    {% else %}
+    <!-- Login Form -->
+    <h2>Admin Login</h2>
+    <form method="post" action="/login">
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+        <button type="submit">Login</button>
+    </form>
+    {% endif %}
 </body>
 </html>

@@ -15,7 +15,7 @@ c = conn.cursor()
 
 # emp_1 = Employee('Aidan', 'Phan', 456)
 # emp_2 = Employee('Aaron', 'Phan', 654)
-#emp_3 = Employee('Aidan', 'Phan', 456)
+# emp_3 = Employee('Aidan', 'Phan', 456)
 
 def insertEmp(emp):
     with conn:
@@ -38,11 +38,12 @@ def updatePay(emp, pay):
 #c.execute("INSERT INTO employees VALUES (:first, :last, :pay)", {'first': emp_2.first, 'last': emp_2.last, 'pay': emp_2.pay})
 
 #conn.commit()
+#c.execute("INSERT INTO employees VALUES (first, last, pay)")
 
-emps = getEmpByName('Schafer')
+emps = getEmpByName('Phan')
 print(emps)
 
-update = updatePay()
+# update = updatePay()
 
 
 
