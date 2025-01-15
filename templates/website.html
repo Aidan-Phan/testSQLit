@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Website</title>
+</head>
+<body>
+    <h1>Active Database</h1>
+
+    <!-- Display Records -->
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Value</th>
+            <th>Actions</th>
+        </tr>
+        {% for record in records %}
+        <tr>
+            <td>{{ record[0] }}</td>
+            <td>{{ record[1] }}</td>
+            <td>{{ record[2] }}</td>
+            <td><a href="/delete/{{ record[0] }}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Form to Add Records -->
+    <h2>Add a New Record</h2>
+    <form method="post" action="/add">
+        <label>Name:</label><br>
+        <input type="text" name="name"><br>
+        <label>Value:</label><br>
+        <input type="text" name="value"><br><br>
+        <input type="submit" value="Add">
+    </form>
+</body>
+</html>
