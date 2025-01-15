@@ -1,29 +1,27 @@
 <!DOCTYPE html>
-<!-- CREATED BY CHATGPT -->
+<!-- Created with the help of chatgpt -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Database</title>
+    <title>Jugger Point Database</title>
 </head>
 <body>
-    <h1>Employee Database</h1>
-
-    <!-- Table to Display Records -->
-    <h2>Employee Records</h2>
+  <img src="https://cdn.glitch.global/6b7aff62-cdb7-4f25-8176-e51b52d83d67/yusefhittingthe.png?v=1736" alt="Yusef Hitting The" align="right">
+    <h1>Jugger Point Database</h1>
     <table border="1">
         <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
+<!--             <th>ID</th> -->
+            <th>Name</th>
+            <th>Team</th>
             <th>Points</th>
             {% if is_authenticated %}
             <th>Actions</th>
             {% endif %}
         </tr>
         {% for record in records %}
-        <tr>
-            <td>{{ record[0] }}</td>
+          <tr>
+<!--             <td>{{ record[0] }}</td> -->
             <td>{{ record[1] }}</td>
             <td>{{ record[2] }}</td>
             <td>{{ record[3] }}</td>
@@ -35,13 +33,13 @@
                     <button type="submit">Remove</button>
                 </form>
 
-                <!-- Increase Value Button -->
+                <!-- Increase Pay Button -->
                 <form method="post" action="/increase" style="display:inline;">
                     <input type="hidden" name="id" value="{{ record[0] }}">
                     <button type="submit">Increase</button>
                 </form>
 
-                <!-- Decrease Value Button -->
+                <!-- Decrease Pay Button -->
                 <form method="post" action="/decrease" style="display:inline;">
                     <input type="hidden" name="id" value="{{ record[0] }}">
                     <button type="submit">Decrease</button>
@@ -49,32 +47,36 @@
             </td>
             {% endif %}
         </tr>
+
         {% endfor %}
     </table>
 
-    <hr>
-
     {% if is_authenticated %}
-    <!-- Form to Add Data -->
-    <h2>Insert Employee</h2>
-    <form id="employee-form" method="post" action="/add">
-        <label for="first">First Name:</label><br>
+    <h2>Insert Jugger</h2>
+    <form method="post" action="/add">
+        <label for="first">Name:</label><br>
         <input type="text" id="first" name="first" required><br><br>
 
-        <label for="last">Last Name:</label><br>
-        <input type="text" id="last" name="last" required><br><br>
+        <label for="last">Team:</label><br>
+          <select id="last" name="last" required>
+              <option value="" disabled selected>Select a team:</option>
+              <option value="Luna">Luna</option>
+              <option value="Ursae">Ursae</option>
+              <option value="Arbor">Arbor</option>
+              <option value="Sins">Sins</option>
+              <option value="Solaris">Solaris</option>
+              <option value="BAJA">BAJA</option>
+              <option value="Nights">Nights</option>
+              <option value="Deities">Deities</option>
+          </select><br><br>
 
         <label for="value">Points:</label><br>
         <input type="number" id="value" name="value" required><br><br>
 
-        <button type="submit">Add Player</button>
-    </form>
-    <form method="get" action="/logout">
-        <button type="submit">Logout</button>
+        <button type="submit">Add Jugger</button>
     </form>
     {% else %}
-    <!-- Login Form -->
-    <h2>Admin Login</h2>
+    <h2>Captain Login</h2>
     <form method="post" action="/login">
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password" required><br><br>
